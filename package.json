@@ -1,0 +1,22 @@
+{
+  "name": "nodejs-robot",
+  "version": "0.0.1",
+  "description": "Dois robos para usar no TCC",
+  "main": "index.crawler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pdssf/nodejs-robot.git"
+  },
+  "author": "pdssf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pdssf/nodejs-robot/issues"
+  },
+  "homepage": "https://github.com/pdssf/nodejs-robot#readme",
+  "dependencies": {
+    "puppeteer": "^13.5.1"
+  }
+}
