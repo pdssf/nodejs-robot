@@ -1,9 +1,9 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const sessionsSiteArray = [{
-  site: 'https://webmedia.org.br/2020/programacao-em-html/#st1',
-	year: 2020
-	},{
+//   site: 'https://webmedia.org.br/2020/programacao-em-html/#st1',
+// 	year: 2020
+// 	},{
 		site: 'https://webmedia.org.br/2019/programacao-em-html/#st1',
 		year: 2019
 	}
@@ -19,8 +19,12 @@ const sessionsArray = []
 
   // launches the browser and configure it to not download any media, making the navigation faster
   const browser = await puppeteer.launch({
-    headless: false,
-    slowMo: 100
+    headless: true,
+    args: [
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+  ]
   });
   const page = await browser.newPage();
   page.setDefaultTimeout(180000);
@@ -50,6 +54,7 @@ const sessionsArray = []
  * @param {string} strDate 
  */
 const getData = async (page, data) => {
+	await page.waitForSelector('h4')
 	const sessions = (await page.$x(`//p[contains(., 'ST')]`))[0]
 	const sessionsNum = await sessions.$$eval('a', e => e.length)
 	console.log('temos', sessionsNum, 'sessoes')

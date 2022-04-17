@@ -102,7 +102,13 @@ const dataArray = [
 
   // launches the browser and configure it to not download any media, making the navigation faster
   const browser = await puppeteer.launch({
-    headless: true
+    headless: true,
+    args: [
+      "--disable-gpu",
+      "--disable-dev-shm-usage",
+      "--disable-setuid-sandbox",
+      "--no-sandbox",
+  ]
   });
   const page = await browser.newPage();
   page.setDefaultTimeout(180000);
