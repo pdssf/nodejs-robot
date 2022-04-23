@@ -48,7 +48,7 @@ const sessionsArray = []
 
 
 /**
- * @description goes to the webpage and extract the data to store on a csv file
+ * @description Extract the data from webmedia's website
  * @param {puppeteer.Page} page 
  * @param {number} day 
  * @param {string} strDate 
@@ -57,9 +57,7 @@ const getData = async (page, data) => {
 	await page.waitForSelector('h4')
 	const sessions = (await page.$x(`//p[contains(., 'ST')]`))[0]
 	const sessionsNum = await sessions.$$eval('a', e => e.length)
-	console.log('temos', sessionsNum, 'sessoes')
 	const sessionsNameTemp = await page.$$eval('h4', e => e.map((e) => e.textContent))
-	console.log({sessionsNameTemp})
 	const sessionsName = sessionsNameTemp.map(e => {
 		if(e.includes('ST')) return e
 	})
@@ -74,7 +72,6 @@ const getData = async (page, data) => {
 			chair = pText.replace('Chair: ', '').replace('chair: ', '')
 			counter++
 			if(counter > sessionsNum) {
-				console.log('fim das sessões tecnicas')
 				break
 			}
 		}else if(counter > 0){
@@ -86,10 +83,8 @@ const getData = async (page, data) => {
 				title,
 				author
 			})
-			console.log({title, author})
 		}
 	}
-	console.log(sessionsArray)
 	printToFile(sessionsArray, data.year)
 }
 
