@@ -5,8 +5,8 @@ const dataArray = [
     "Phone Number": "40716543298",
     "First Name": "John",
     "Last Name": "Smith",
-    "Company Name": "IT Solutions",
-    "Role in Company": "Analyst",
+    "company": "IT Solutions",
+    "role": "Analyst",
     Address: "98 North Road",
     Email: "jsmith@itsolutions.co.uk",
   },
@@ -14,8 +14,8 @@ const dataArray = [
     "Phone Number": "40791345621",
     "First Name": "Jane",
     "Last Name": "Dorsey",
-    "Company Name": "MediCare",
-    "Role in Company": "Medical Engineer",
+    "company": "MediCare",
+    "role": "Medical Engineer",
     Address: "11 Crown Street",
     Email: "jdorsey@mc.com",
   },
@@ -23,8 +23,8 @@ const dataArray = [
     "Phone Number": "40735416854",
     "First Name": "Albert",
     "Last Name": "Kipling",
-    "Company Name": "Waterfront",
-    "Role in Company": "Accountant",
+    "company": "Waterfront",
+    "role": "Accountant",
     Address: "22 Guild Street",
     Email: "kipling@waterfront.com",
   },
@@ -32,8 +32,8 @@ const dataArray = [
     "Phone Number": "40733652145",
     "First Name": "Michael",
     "Last Name": "Robertson",
-    "Company Name": "MediCare",
-    "Role in Company": "IT Specialist",
+    "company": "MediCare",
+    "role": "IT Specialist",
     Address: "17 Farburn Terrace",
     Email: "mrobertson@mc.com",
   },
@@ -41,8 +41,8 @@ const dataArray = [
     "Phone Number": "40799885412",
     "First Name": "Doug",
     "Last Name": "Derrick",
-    "Company Name": "Timepath Inc.",
-    "Role in Company": "Analyst",
+    "company": "Timepath Inc.",
+    "role": "Analyst",
     Address: "99 Shire Oak Road",
     Email: "dderrick@timepath.co.uk",
   },
@@ -50,8 +50,8 @@ const dataArray = [
     "Phone Number": "40733154268",
     "First Name": "Jessie",
     "Last Name": "Marlowe",
-    "Company Name": "Aperture Inc.",
-    "Role in Company": "Scientist",
+    "company": "Aperture Inc.",
+    "role": "Scientist",
     Address: "27 Cheshire Street",
     Email: "jmarlowe@aperture.us",
   },
@@ -59,8 +59,8 @@ const dataArray = [
     "Phone Number": "40712462257",
     "First Name": "Stan",
     "Last Name": "Hamm",
-    "Company Name": "Sugarwell",
-    "Role in Company": "Advisor",
+    "company": "Sugarwell",
+    "role": "Advisor",
     Address: "10 Dam Road",
     Email: "shamm@sugarwell.org",
   },
@@ -68,8 +68,8 @@ const dataArray = [
     "Phone Number": "40731254562",
     "First Name": "Michelle",
     "Last Name": "Norton",
-    "Company Name": "Aperture Inc.",
-    "Role in Company": "Scientist",
+    "company": "Aperture Inc.",
+    "role": "Scientist",
     Address: "13 White Rabbit Street",
     Email: "mnorton@aperture.us",
   },
@@ -77,8 +77,8 @@ const dataArray = [
     "Phone Number": "40741785214",
     "First Name": "Stacy",
     "Last Name": "Shelby",
-    "Company Name": "TechDev",
-    "Role in Company": "HR Manager",
+    "company": "TechDev",
+    "role": "HR Manager",
     Address: "19 Pineapple Boulevard",
     Email: "sshelby@techdev.com",
   },
@@ -86,8 +86,8 @@ const dataArray = [
     "Phone Number": "40731653845",
     "First Name": "Lara",
     "Last Name": "Palmer",
-    "Company Name": "Timepath Inc.",
-    "Role in Company": "Programmer",
+    "company": "Timepath Inc.",
+    "role": "Programmer",
     Address: "87 Orange Street",
     Email: "lpalmer@timepath.co.uk",
   },
@@ -130,20 +130,19 @@ const dataArray = [
 
 
 /**
- * @description goes to the webpage and extract the data to store on a csv file
+ * @description Fill data in a form
  * @param {puppeteer.Page} page 
- * @param {number} day 
- * @param {string} strDate 
+ * @param {Object} data
  */
 const fillData = async (page, data) => {
+  const defaultInput = (sel) => `input[ng-reflect-name="${sel}"]`
   await page.waitForSelector('input[value="Submit"]')
-  await page.type('input[ng-reflect-name="labelPhone"]', data["Phone Number"])
-  await page.type('input[ng-reflect-name="labelLastName"]', data["Last Name"])
-  await page.type('input[ng-reflect-name="labelEmail"]', data["Email"])
-  await page.type('input[ng-reflect-name="labelCompanyName"]', data["Company Name"])
-  await page.type('input[ng-reflect-name="labelRole"]', data["Role in Company"])
-  await page.type('input[ng-reflect-name="labelAddress"]', data["Address"])
-  await page.type('input[ng-reflect-name="labelFirstName"]', data["First Name"])
+  await page.type(defaultInput("labelPhone"), data['Phone Number'])
+  await page.type(defaultInput("labelLastName"), data['Last Name'])
+  await page.type(defaultInput("labelEmail"), data['Email'])
+  await page.type(defaultInput("labelCompanyName"), data['company'])
+  await page.type(defaultInput("labelRole"), data['role'])
+  await page.type(defaultInput("labelAddress"), data['Address'])
+  await page.type(defaultInput("labelFirstName"), data['First Name'])
   await page.click('input[value="Submit"]')
-  
 }
